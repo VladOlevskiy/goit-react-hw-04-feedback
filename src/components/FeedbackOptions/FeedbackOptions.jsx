@@ -2,12 +2,16 @@ import React from 'react';
 import { ListButton, ListItemButton, Button } from './FeedbackOptions-styled';
 import PropTypes from 'prop-types';
 
-export default function FeedbackOptions({ foo, stateKeys }) {
+export default function FeedbackOptions({ FeedbackCountFunc, stateKeys }) {
   return (
     <ListButton>
       {stateKeys.map(stateKey => (
         <ListItemButton key={stateKey}>
-          <Button key={stateKey} type="button" name={stateKey} onClick={foo}>
+          <Button
+            key={stateKey}
+            type="button"
+            onClick={() => FeedbackCountFunc(stateKey)}
+          >
             {stateKey}
           </Button>
         </ListItemButton>
@@ -17,6 +21,6 @@ export default function FeedbackOptions({ foo, stateKeys }) {
 }
 
 FeedbackOptions.propTypes = {
-  foo: PropTypes.func.isRequired,
+  FeedbackCountFunc: PropTypes.func.isRequired,
   stateKeys: PropTypes.array.isRequired,
 };

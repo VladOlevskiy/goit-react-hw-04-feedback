@@ -10,22 +10,18 @@ export const App = () => {
   const [neutral, setNeatural] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const stateKeys = ['good', 'neutral', 'bad'];
-
-  const GetCountFeedback = evt => {
-    if (stateKeys[0] === evt.target.name) {
+  const GetCountFeedback = option => {
+    if (option === 'good') {
       setGood(prevState => prevState + 1);
     }
-    if (stateKeys[1] === evt.target.name) {
+    if (option === 'neutral') {
       setNeatural(prevState => prevState + 1);
     }
-    if (stateKeys[2] === evt.target.name) {
+    if (option === 'bad') {
       setBad(prevState => prevState + 1);
     }
   };
-
   let total = 0;
-
   const countTotalFeedback = () => {
     total = good + neutral + bad;
 
@@ -39,6 +35,8 @@ export const App = () => {
       return Math.round((good / total) * 100);
     }
   };
+
+  const stateKeys = Object.keys({ good, neutral, bad });
 
   return (
     <Box
@@ -55,7 +53,10 @@ export const App = () => {
       marginBottom="80px"
     >
       <Section text="Please leave feedback">
-        <FeedbackOptions foo={GetCountFeedback} stateKeys={stateKeys} />
+        <FeedbackOptions
+          FeedbackCountFunc={GetCountFeedback}
+          stateKeys={stateKeys}
+        />
       </Section>
       <Section text="Statistics">
         {total >= 1 ? (
